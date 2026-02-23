@@ -17,17 +17,15 @@ def xor_encrypt(data: str, key: str):
 def auth_ok(req):
     return req.headers.get("Authorization") == ADMIN_KEY
 
-@app.get("/users")
+@app.route("/users", methods=["GET"])
 def users():
     if not auth_ok(request):
         return "Unauthorized", 401
 
-    payload = json.dumps({
-        "users": ["TestUser"]
-    })
+    payload = json.dumps({"users": ["TestUser"]})
     return xor_encrypt(payload, XOR_KEY)
 
-@app.get("/users/<username>/brainrots")
+@app.route("/users/<username>/brainrots", methods=["GET"])
 def brainrots(username):
     if not auth_ok(request):
         return "Unauthorized", 401
@@ -36,8 +34,7 @@ def brainrots(username):
         {
             "owner": username,
             "brainrots": [
-                {"name": "Gold Rot", "gen": "$1.5m/s"},
-                {"name": "Trash Rot", "gen": "$2k/s"}
+                {"name": "Gold Rot", "gen": "$1.5m/s"}
             ]
         }
     ])
