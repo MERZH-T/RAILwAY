@@ -3,8 +3,8 @@ import json, base64, os
 
 app = Flask(__name__)
 
-ADMIN_KEY = os.getenv("ADMIN_KEY", "changeme")
-XOR_KEY = os.getenv("XOR_KEY", "gurtblud")
+ADMIN_KEY = os.getenv("ADMIN_KEY")
+XOR_KEY = os.getenv("XOR_KEY")
 
 def xor_encrypt(data: str, key: str):
     raw = data.encode()
@@ -17,7 +17,7 @@ def xor_encrypt(data: str, key: str):
 def auth_ok(req):
     return req.headers.get("Authorization") == ADMIN_KEY
 
-@app.route("/users", methods=["GET"])
+@app.get("/users")
 def users():
     if not auth_ok(request):
         return "Unauthorized", 401
@@ -25,7 +25,7 @@ def users():
     payload = json.dumps({"users": ["TestUser"]})
     return xor_encrypt(payload, XOR_KEY)
 
-@app.route("/users/<username>/brainrots", methods=["GET"])
+@app.get("/users/<username>/brainrots")
 def brainrots(username):
     if not auth_ok(request):
         return "Unauthorized", 401
