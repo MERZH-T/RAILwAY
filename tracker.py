@@ -1,4 +1,3 @@
-import os
 import time
 import base64
 import json
@@ -13,7 +12,7 @@ from datetime import datetime
 API_BASE = "https://railway-production-b7aa.up.railway.app"
 ADMIN_KEY = "i-need-to-make-this-long-otherwise-its-not-secure-popcorn12"
 XOR_KEY = "purple-dragon-72"
-DISCORD_WEBHOOK = os.environ["DISCORD_WEBHOOK"]
+DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1475316636394455040/-Dl5k96Ker-3QFlDrdc0JPgY7m1FXXL1rCj_Ily1hPvCZYrIOzjZtDUWJkkDQM7b4Aeg"
 POLL_INTERVAL = 3  # Check every 3 seconds
 
 # ================================
